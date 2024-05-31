@@ -66,7 +66,7 @@ const handler: NextApiHandler = async (
         portOfDischarge,
         vessel,
         unitTypes,
-      } = req.body;
+      } = JSON.parse(req.body);
 
       const createdVoyage = await prisma.voyage.create({
         data: {
