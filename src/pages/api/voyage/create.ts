@@ -68,7 +68,10 @@ const handler: NextApiHandler = async (
     unitTypes,
   } = JSON.parse(req.body);
 
-  if (portOfLoading === portOfDischarge) res.status(400).end();
+  if (portOfLoading === portOfDischarge) {
+    res.status(400).end();
+    return;
+  }
   if (compareAsc(new Date(arrival), new Date(departure)) !== -1)
     res.status(400).end();
 

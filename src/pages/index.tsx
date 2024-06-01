@@ -95,14 +95,21 @@ export default function Home() {
   const queryClient = useQueryClient();
   const createMutation = useMutation({
     mutationFn: createVoyage,
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await queryClient.invalidateQueries([
         "voyages",
       ] as InvalidateQueryFilters);
-      setIsCreateDialogOpen(false);
+      handleSheetClose(false);
       toast({
         title: "Success!",
         description: "Voyage was successfully created",
+      });
+    },
+    onError(error) {
+      handleSheetClose(false);
+      toast({
+        title: "Error",
+        description: error.message,
       });
     },
   });
