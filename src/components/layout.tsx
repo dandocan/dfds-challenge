@@ -1,6 +1,6 @@
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { Toaster } from "./ui/toaster";
 
 type Props = {

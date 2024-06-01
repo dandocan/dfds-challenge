@@ -1,4 +1,4 @@
-import type { NextApiHandler, NextApiResponse, NextApiRequest } from "next";
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "~/server/db";
 
 /**
