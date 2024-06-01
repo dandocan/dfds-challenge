@@ -10,6 +10,7 @@ import {
 type CheckboxDropdownProps<T> = {
   title: string;
   checkboxData?: T[];
+  // Property to be targetted as a value
   checkboxValueTarget: string;
   labelCreator: (option: T) => string;
   onChange: (selected: any[]) => void;
@@ -63,7 +64,7 @@ export const CheckboxDropdown = <T extends Record<any, any>>({
           return (
             <DropdownMenuCheckboxItem
               checked={selectedCheckboxes[valueToSelect]}
-              onSelect={(e: CustomEvent) => {
+              onSelect={(e: Event) => {
                 e.preventDefault();
                 if (!selectedCheckboxes[valueToSelect])
                   handleCheck(valueToSelect);

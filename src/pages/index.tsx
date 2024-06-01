@@ -283,7 +283,7 @@ export default function Home() {
                 <Controller
                   name="unitTypes"
                   control={control}
-                  render={({ field: { onChange, value } }) => (
+                  render={({ field: { onChange } }) => (
                     <CheckboxDropdown
                       checkboxData={unitTypes}
                       checkboxValueTarget="id"
