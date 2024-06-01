@@ -1,6 +1,7 @@
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { Toaster } from "./ui/toaster";
 
 type Props = {
   children: ReactNode;
@@ -17,6 +18,7 @@ export default function Layout({ children }: Props) {
       <main className="mx-auto flex w-full max-w-screen-xl items-center justify-center px-2">
         <NextThemesProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
+          <Toaster />
         </NextThemesProvider>
       </main>
     </>

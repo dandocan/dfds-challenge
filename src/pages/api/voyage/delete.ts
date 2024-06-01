@@ -1,5 +1,5 @@
 import type { Vessel, Voyage } from "@prisma/client";
-import type { NextApiHandler, NextApiResponse, NextApiRequest } from "next";
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "~/server/db";
 
 export type ReturnType = (Voyage & { vessel: Vessel })[];

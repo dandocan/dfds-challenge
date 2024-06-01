@@ -1,4 +1,5 @@
-import type { NextApiHandler, NextApiResponse, NextApiRequest } from "next";
+import { compareAsc } from "date-fns";
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "~/server/db";
 
 /**
@@ -57,36 +58,43 @@ const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<undefined>,
 ) => {
-  if (req.method === "POST") {
-    if (req.method === "POST") {
-      const {
-        departure,
-        arrival,
+  if (req.method !== "POST") res.status(405).end();
+  const {
+    departure,
+    arrival,
+    portOfLoading,
+    portOfDischarge,
+    vessel,
+    unitTypes,
+  } = JSON.parse(req.body);
+
+  if (portOfLoading === portOfDischarge) {
+    res.status(400).end();
+    return;
+  }
+  if (compareAsc(new Date(arrival), new Date(departure)) === -1) {
+    res.status(400).end();
+    return;
+  }
+
+  try {
+    const createdVoyage = await prisma.voyage.create({
+      data: {
+        scheduledDeparture: departure,
+        scheduledArrival: arrival,
         portOfLoading,
         portOfDischarge,
-        vessel,
-        unitTypes,
-      } = req.body;
-
-      const createdVoyage = await prisma.voyage.create({
-        data: {
-          scheduledDeparture: departure,
-          scheduledArrival: arrival,
-          portOfLoading,
-          portOfDischarge,
-          vesselId: vessel,
-          unitTypes: {
-            connect: unitTypes.map((id: string) => ({ id })),
-          },
+        vesselId: vessel,
+        unitTypes: {
+          connect: unitTypes.map((id: string) => ({ id })),
         },
-      });
-
-      createdVoyage ? res.status(201) : res.status(500);
-      res.end();
-      return;
-    }
-
-    res.status(405).end();
+      },
+    });
+    createdVoyage ? res.status(201) : res.status(500);
+    res.end();
+    return;
+  } catch (e) {
+    res.status(400);
   }
 };
 export default handler;
