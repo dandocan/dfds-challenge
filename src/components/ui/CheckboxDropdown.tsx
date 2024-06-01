@@ -65,7 +65,6 @@ export const CheckboxDropdown = <T extends Record<any, any>>({
               checked={selectedCheckboxes[valueToSelect]}
               onSelect={(e: CustomEvent) => {
                 e.preventDefault();
-                console.log(valueToSelect);
                 if (!selectedCheckboxes[valueToSelect])
                   handleCheck(valueToSelect);
                 else handleUncheck(valueToSelect);
