@@ -13,17 +13,19 @@ import { Button } from "./button";
 import { Calendar } from "./calendar";
 import { Input } from "./input";
 
+type DateTimePopoverProps = {
+  onChange: (date: Date) => void;
+  value?: Date | null;
+  minDate?: Date | null;
+  maxDate?: Date | null;
+};
+
 export const DateTimePopover = ({
   onChange,
   value,
   minDate,
   maxDate,
-}: {
-  onChange: (date: Date) => void;
-  value?: Date | null;
-  minDate?: Date | null;
-  maxDate?: Date | null;
-}) => {
+}: DateTimePopoverProps) => {
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState("");
   const [isPopoverOpen, setisPopoverOpen] = useState(false);
