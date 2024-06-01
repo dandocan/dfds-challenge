@@ -51,9 +51,10 @@ const schema: ZodType<CreateVoyageBody> = z
   .object({
     portOfLoading: z.string().min(1, { message: "Required" }),
     portOfDischarge: z.string().min(1, { message: "Required" }),
-    vessel: z.string(),
+    vessel: z.string().min(1, { message: "Required" }),
     departure: z.date(),
     arrival: z.date(),
+    date: z.string().optional(),
   })
   .refine((data) => compareAsc(data.arrival, data.departure) !== -1, {
     message: "Arrival date cannot be earlier than departure date.",
@@ -76,7 +77,15 @@ export default function Home() {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    reValidateMode: "onBlur",
+    reValidateMode: "onChange",
+    defaultValues: {
+      portOfDischarge: "",
+      portOfLoading: "",
+      departure: null,
+      arrival: null,
+      vessel: "",
+      date: "",
+    },
   });
 
   const { data: voyages } = useQuery<ReturnType>({
@@ -95,7 +104,7 @@ export default function Home() {
   const queryClient = useQueryClient();
   const createMutation = useMutation({
     mutationFn: createVoyage,
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries([
         "voyages",
       ] as InvalidateQueryFilters);
@@ -167,7 +176,7 @@ export default function Home() {
                   {
                     <p className="h-4 text-red-400">
                       {errors.portOfLoading?.message &&
-                        `*${errors.portOfLoading.message as string}`}
+                        `*${errors.portOfLoading.message}`}
                     </p>
                   }
                 </div>
@@ -177,7 +186,7 @@ export default function Home() {
                   {
                     <p className="h-4 text-red-400">
                       {errors.portOfDischarge?.message &&
-                        `*${errors.portOfDischarge.message as string}`}
+                        `*${errors.portOfDischarge.message}`}
                     </p>
                   }
                 </div>
@@ -212,8 +221,7 @@ export default function Home() {
                   />
                   {
                     <p className="h-4 text-red-400">
-                      {errors.vessel?.message &&
-                        `*${errors.vessel.message as string}`}
+                      {errors.vessel?.message && `*${errors.vessel.message}`}
                     </p>
                   }
                 </div>
@@ -234,7 +242,7 @@ export default function Home() {
                     {
                       <p className="h-4 text-red-400">
                         {errors.departure?.message &&
-                          `*${errors.departure.message as string}`}
+                          `*${errors.departure.message}`}
                       </p>
                     }
                   </div>
@@ -254,15 +262,14 @@ export default function Home() {
                     {
                       <p className="h-4 text-red-400">
                         {errors.arrival?.message &&
-                          `*${errors.arrival.message as string}`}
+                          `*${errors.arrival.message}`}
                       </p>
                     }
                   </div>
                 </div>
                 {
                   <p className="h-4 text-red-400">
-                    {errors.date?.message &&
-                      `*${errors.date.message as string}`}
+                    {errors.date?.message && `*${errors.date.message}`}
                   </p>
                 }
               </div>

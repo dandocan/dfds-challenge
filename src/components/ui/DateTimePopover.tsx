@@ -20,9 +20,9 @@ export const DateTimePopover = ({
   maxDate,
 }: {
   onChange: (date: Date) => void;
-  value?: Date;
-  minDate?: Date;
-  maxDate?: Date;
+  value?: Date | null;
+  minDate?: Date | null;
+  maxDate?: Date | null;
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState("");
@@ -68,8 +68,8 @@ export const DateTimePopover = ({
           mode="single"
           selected={selectedDate}
           onSelect={handleDateSelect}
-          fromDate={minDate}
-          toDate={maxDate}
+          fromDate={!!minDate ? minDate : undefined}
+          toDate={!!maxDate ? maxDate : undefined}
           initialFocus
         />
         <Input

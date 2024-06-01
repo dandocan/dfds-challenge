@@ -72,8 +72,10 @@ const handler: NextApiHandler = async (
     res.status(400).end();
     return;
   }
-  if (compareAsc(new Date(arrival), new Date(departure)) !== -1)
+  if (compareAsc(new Date(arrival), new Date(departure)) === -1) {
     res.status(400).end();
+    return;
+  }
 
   try {
     const createdVoyage = await prisma.voyage.create({
