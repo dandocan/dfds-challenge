@@ -9,7 +9,6 @@ export async function createVoyage(requestBody: CreateVoyageBody) {
   });
 
   if (!response.ok) {
-    console.log("Response not ok");
     throw new Error("Request failed");
   }
   return true;
