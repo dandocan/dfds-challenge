@@ -89,7 +89,7 @@ const handler: NextApiHandler = async (
     res.end();
     return;
   } catch (e) {
-    res.status(400).json(e as any);
+    res.status(400);
   }
 };
 export default handler;

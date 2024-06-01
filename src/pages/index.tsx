@@ -9,7 +9,7 @@ import {
 import { compareAsc, format } from "date-fns";
 import Head from "next/head";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, FieldValues, useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
 import Layout from "~/components/layout";
 import { DateTimePopover } from "~/components/ui/DateTimePopover";
@@ -44,6 +44,7 @@ export type CreateVoyageBody = {
   vessel: string;
   departure: Date;
   arrival: Date;
+  unitTypes?: string[];
 };
 
 const schema: ZodType<CreateVoyageBody> = z
@@ -131,8 +132,11 @@ export default function Home() {
     mutation.mutate(voyageId);
   };
 
-  const onSubmit = async (data: any) => {
-    createMutation.mutate({ ...data, unitTypes: [] });
+  const onSubmit = (data: FieldValues) => {
+    createMutation.mutate({
+      ...(data as CreateVoyageBody),
+      unitTypes: [],
+    });
   };
 
   return (
@@ -156,7 +160,7 @@ export default function Home() {
                   {
                     <p className="h-4 text-red-400">
                       {errors.portOfLoading?.message &&
-                        `*${errors.portOfLoading.message.toString()}`}
+                        `*${errors.portOfLoading.message as string}`}
                     </p>
                   }
                 </div>
@@ -166,7 +170,7 @@ export default function Home() {
                   {
                     <p className="h-4 text-red-400">
                       {errors.portOfDischarge?.message &&
-                        `*${errors.portOfDischarge.message.toString()}`}
+                        `*${errors.portOfDischarge.message as string}`}
                     </p>
                   }
                 </div>
@@ -188,7 +192,10 @@ export default function Home() {
                         </SelectTrigger>
                         <SelectContent>
                           {vessels?.map((vesselOption) => (
-                            <SelectItem value={vesselOption.value}>
+                            <SelectItem
+                              key={vesselOption.value}
+                              value={vesselOption.value}
+                            >
                               {vesselOption.label}
                             </SelectItem>
                           ))}
@@ -199,7 +206,7 @@ export default function Home() {
                   {
                     <p className="h-4 text-red-400">
                       {errors.vessel?.message &&
-                        `*${errors.vessel.message.toString()}`}
+                        `*${errors.vessel.message as string}`}
                     </p>
                   }
                 </div>
@@ -220,7 +227,7 @@ export default function Home() {
                     {
                       <p className="h-4 text-red-400">
                         {errors.departure?.message &&
-                          `*${errors.departure.message.toString()}`}
+                          `*${errors.departure.message as string}`}
                       </p>
                     }
                   </div>
@@ -240,7 +247,7 @@ export default function Home() {
                     {
                       <p className="h-4 text-red-400">
                         {errors.arrival?.message &&
-                          `*${errors.arrival.message.toString()}`}
+                          `*${errors.arrival.message as string}`}
                       </p>
                     }
                   </div>
@@ -248,7 +255,7 @@ export default function Home() {
                 {
                   <p className="h-4 text-red-400">
                     {errors.date?.message &&
-                      `*${errors.date.message.toString()}`}
+                      `*${errors.date.message as string}`}
                   </p>
                 }
               </div>
