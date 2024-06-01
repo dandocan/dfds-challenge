@@ -60,6 +60,7 @@ const schema: ZodType<CreateVoyageBody> = z
   })
   .refine((data) => data.portOfLoading === data.portOfLoading, {
     message: "Port of loading and port of discharge cannot be the same.",
+    path: ["arrival"],
   });
 
 export default function Home() {
