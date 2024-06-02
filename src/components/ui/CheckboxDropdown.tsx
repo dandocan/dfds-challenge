@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { Button } from "./button";
+import { Button } from "./shad-cn/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
+} from "./shad-cn/dropdown-menu";
 
 type CheckboxDropdownProps<T> = {
   title: string;
@@ -47,7 +47,7 @@ export const CheckboxDropdown = <T extends Record<any, any>>({
 
   useEffect(() => {
     onChange(selectedOptions);
-  }, [selectedCheckboxes]);
+  }, [selectedOptions]);
 
   return (
     <DropdownMenu>

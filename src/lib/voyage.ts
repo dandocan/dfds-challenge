@@ -1,4 +1,4 @@
-import { CreateVoyageBody } from "~/pages";
+import { CreateVoyageBody } from "src/components/ui/CreateVoyageSheet";
 
 export async function createVoyage(requestBody: CreateVoyageBody) {
   const route = "/api/voyage/create";

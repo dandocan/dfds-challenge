@@ -1,6 +1,6 @@
 import { compareAsc } from "date-fns";
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "~/server/db";
+import { prisma } from "src/server/db";
 
 /**
  * @swagger
