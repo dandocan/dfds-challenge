@@ -352,7 +352,10 @@ export default function Home() {
                     {voyage.unitTypes.length > 0 && (
                       <PopoverContent className="flex w-auto flex-col gap-1 rounded-sm border-2 border-white bg-popover p-3">
                         {voyage.unitTypes.map((unitType) => (
-                          <div className="flex justify-between gap-2">
+                          <div
+                            className="flex justify-between gap-2"
+                            key={unitType.id}
+                          >
                             <span>{`${unitType.name}:`}</span>
                             <span>{unitType.defaultLength}</span>
                           </div>
