@@ -32,3 +32,4 @@ There are several improvements that I wanted to make that I felt deviated too mu
 
 - Left in the random delete endpoint failure for testing reasons.
 - Some of the error displaying and dismissing for RFH is inconsistent, particularly because of the custome DateTimePopover.
+- There is a Vercel deployment, but this doesn't work fully Vercel doesn't support sqlite
