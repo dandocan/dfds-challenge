@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { UnitType } from "@prisma/client";
 import { Cross1Icon, PlusIcon } from "@radix-ui/react-icons";
 import {
   InvalidateQueryFilters,
@@ -12,6 +13,7 @@ import { useState } from "react";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
 import Layout from "~/components/layout";
+import { CheckboxDropdown } from "~/components/ui/CheckboxDropdown";
 import { DateTimePopover } from "~/components/ui/DateTimePopover";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -55,6 +57,9 @@ const schema: ZodType<CreateVoyageBody> = z
     departure: z.date(),
     arrival: z.date(),
     date: z.string().optional(),
+    unitTypes: z
+      .array(z.string())
+      .min(5, { message: "At least 5 unit types are required" }),
   })
   .refine((data) => compareAsc(data.arrival, data.departure) !== -1, {
     message: "Arrival date cannot be earlier than departure date.",
@@ -85,19 +90,23 @@ export default function Home() {
       arrival: null,
       vessel: "",
       date: "",
+      unitTypes: [],
     },
   });
 
   const { data: voyages } = useQuery<ReturnType>({
     queryKey: ["voyages"],
-
     queryFn: () => fetchData("voyage/getAll"),
   });
 
   const { data: vessels } = useQuery<VesselsType>({
     queryKey: ["vessels"],
-
     queryFn: () => fetchData("vessel/getAll"),
+  });
+
+  const { data: unitTypes } = useQuery<UnitType[]>({
+    queryKey: ["unitType"],
+    queryFn: () => fetchData("unitType/getAll"),
   });
 
   const { toast } = useToast();
@@ -151,7 +160,6 @@ export default function Home() {
   const onSubmit = (data: FieldValues) => {
     createMutation.mutate({
       ...(data as CreateVoyageBody),
-      unitTypes: [],
     });
   };
 
@@ -270,6 +278,27 @@ export default function Home() {
                 {
                   <p className="h-4 text-red-400">
                     {errors.date?.message && `*${errors.date.message}`}
+                  </p>
+                }
+                <Controller
+                  name="unitTypes"
+                  control={control}
+                  render={({ field: { onChange } }) => (
+                    <CheckboxDropdown
+                      checkboxData={unitTypes}
+                      checkboxValueTarget="id"
+                      labelCreator={(option) =>
+                        `${option.name} - ${option.defaultLength}`
+                      }
+                      title="Unit types"
+                      onChange={onChange}
+                    />
+                  )}
+                />
+                {
+                  <p className="h-4 text-red-400">
+                    {errors.unitTypes?.message &&
+                      `*${errors.unitTypes.message}`}
                   </p>
                 }
               </div>
