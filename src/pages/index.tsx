@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UnitType } from "@prisma/client";
 import { Cross1Icon, PlusIcon } from "@radix-ui/react-icons";
-import { PopoverContent } from "@radix-ui/react-popover";
 import {
   InvalidateQueryFilters,
   useMutation,
@@ -18,7 +17,11 @@ import { CheckboxDropdown } from "~/components/ui/CheckboxDropdown";
 import { DateTimePopover } from "~/components/ui/DateTimePopover";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import { Popover, PopoverTrigger } from "~/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "~/components/ui/popover";
 import {
   Select,
   SelectContent,
