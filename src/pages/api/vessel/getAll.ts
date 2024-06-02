@@ -3,11 +3,11 @@ import { prisma } from "~/server/db";
 
 // Assuming the type for a single vessel object.
 type Vessel = {
-    id: string; // or number, depending on your database schema
-    name: string;
-  };
+  id: string; // or number, depending on your database schema
+  name: string;
+};
 
-export type VesselsType = ({ value: string, label: string })[];
+export type VesselsResponseType = { value: string; label: string }[];
 
 /**
  * @swagger
@@ -36,11 +36,17 @@ export type VesselsType = ({ value: string, label: string })[];
  *       500:
  *         description: Internal Server Error - if there's an issue fetching the vessels.
  */
-const handler: NextApiHandler = async (_, res: NextApiResponse<VesselsType>) => {
-    const allVessel: Vessel[] = await prisma.vessel.findMany();
-    const vessels = allVessel.map(vessel => ({ label: vessel.name, value: vessel.id }))
+const handler: NextApiHandler = async (
+  _,
+  res: NextApiResponse<VesselsResponseType>,
+) => {
+  const allVessel: Vessel[] = await prisma.vessel.findMany();
+  const vessels = allVessel.map((vessel) => ({
+    label: vessel.name,
+    value: vessel.id,
+  }));
 
-    res.status(200).json(vessels);
+  res.status(200).json(vessels);
 };
 
 export default handler;

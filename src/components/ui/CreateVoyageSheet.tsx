@@ -24,7 +24,7 @@ import {
   SheetContent,
   SheetHeader,
 } from "src/components/ui/shad-cn/sheet";
-import { VesselsType } from "src/pages/api/vessel/getAll";
+import { VesselsResponseType } from "src/pages/api/vessel/getAll";
 import { fetchData } from "src/utils";
 import { ZodType, z } from "zod";
 import { useToast } from "~/hooks/use-toast";
@@ -91,7 +91,7 @@ export const CreateVoyageSheet = ({
     },
   });
 
-  const { data: vessels } = useQuery<VesselsType>({
+  const { data: vessels } = useQuery<VesselsResponseType>({
     queryKey: ["vessels"],
     queryFn: () => fetchData("vessel/getAll"),
   });
