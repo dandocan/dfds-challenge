@@ -8,14 +8,14 @@ import {
 import { format } from "date-fns";
 import Head from "next/head";
 import { useState } from "react";
-import Layout from "~/components/layout";
-import { CreateVoyageSheet } from "~/components/ui/CreateVoyageSheet";
-import { Button } from "~/components/ui/shad-cn/button";
+import Layout from "src/components/layout";
+import { CreateVoyageSheet } from "src/components/ui/CreateVoyageSheet";
+import { Button } from "src/components/ui/shad-cn/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "~/components/ui/shad-cn/popover";
+} from "src/components/ui/shad-cn/popover";
 import {
   Table,
   TableBody,
@@ -23,10 +23,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "~/components/ui/shad-cn/table";
-import { TABLE_DATE_FORMAT } from "~/constants";
-import { useToast } from "~/hooks/use-toast";
-import { fetchData } from "~/utils";
+} from "src/components/ui/shad-cn/table";
+import { TABLE_DATE_FORMAT } from "src/constants";
+import { useToast } from "src/hooks/use-toast";
+import { fetchData } from "src/utils";
 import type { ReturnType } from "./api/voyage/getAll";
 
 export default function Home() {

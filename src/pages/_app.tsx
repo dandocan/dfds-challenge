@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import { type AppType } from "next/dist/shared/lib/utils";
 import { useState } from "react";
-import "~/styles/globals.css";
+import "src/styles/globals.css";
 
 const MyApp: AppType<{ dehydratedState: DehydratedState }> = ({
   Component,

@@ -1,6 +1,6 @@
 import { UnitType } from "@prisma/client";
 import type { NextApiHandler, NextApiResponse } from "next";
-import { prisma } from "~/server/db";
+import { prisma } from "src/server/db";
 
 export type VesselsType = UnitType[];
 

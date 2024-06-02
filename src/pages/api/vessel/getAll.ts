@@ -1,5 +1,5 @@
 import type { NextApiHandler, NextApiResponse } from "next";
-import { prisma } from "~/server/db";
+import { prisma } from "src/server/db";
 
 // Assuming the type for a single vessel object.
 type Vessel = {
