@@ -133,6 +133,7 @@ export default function Home() {
       toast({
         title: "Error",
         description: error.message,
+        variant: "destructive",
       });
     },
   });
@@ -143,13 +144,21 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to delete the voyage");
+        const { message } = await response.json();
+        throw new Error(message);
       }
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries([
         "voyages",
       ] as InvalidateQueryFilters);
+    },
+    onError(error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     },
   });
 
