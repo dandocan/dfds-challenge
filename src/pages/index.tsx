@@ -18,6 +18,11 @@ import { DateTimePopover } from "~/components/ui/DateTimePopover";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "~/components/ui/popover";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -316,6 +321,7 @@ export default function Home() {
               <TableHead>Port of loading</TableHead>
               <TableHead>Port of discharge</TableHead>
               <TableHead>Vessel</TableHead>
+              <TableHead>Unit types</TableHead>
               <TableHead>
                 <Button
                   className="my-2"
@@ -343,6 +349,24 @@ export default function Home() {
                 <TableCell>{voyage.portOfLoading}</TableCell>
                 <TableCell>{voyage.portOfDischarge}</TableCell>
                 <TableCell>{voyage.vessel.name}</TableCell>
+                <TableCell>
+                  <Popover>
+                    <PopoverTrigger># {voyage.unitTypes.length}</PopoverTrigger>
+                    {voyage.unitTypes.length > 0 && (
+                      <PopoverContent className="flex w-auto flex-col gap-1 rounded-sm border-2 border-white bg-popover p-3">
+                        {voyage.unitTypes.map((unitType) => (
+                          <div
+                            className="flex justify-between gap-2"
+                            key={unitType.id}
+                          >
+                            <span>{`${unitType.name}:`}</span>
+                            <span>{unitType.defaultLength}</span>
+                          </div>
+                        ))}
+                      </PopoverContent>
+                    )}
+                  </Popover>
+                </TableCell>
                 <TableCell>
                   <Button
                     onClick={() => handleDelete(voyage.id)}
