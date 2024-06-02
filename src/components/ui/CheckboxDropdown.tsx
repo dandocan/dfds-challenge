@@ -47,7 +47,7 @@ export const CheckboxDropdown = <T extends Record<any, any>>({
 
   useEffect(() => {
     onChange(selectedOptions);
-  }, [selectedCheckboxes]);
+  }, [selectedOptions]);
 
   return (
     <DropdownMenu>
