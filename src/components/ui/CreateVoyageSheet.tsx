@@ -35,7 +35,7 @@ type CreateVoyageSheetProps = {
   setIsCreateDialogOpen: (open: boolean) => void;
 };
 
-type CreateVoyageBody = {
+export type CreateVoyageBody = {
   portOfLoading: string;
   portOfDischarge: string;
   vessel: string;
