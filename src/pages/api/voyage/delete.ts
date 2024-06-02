@@ -31,14 +31,15 @@ export type ReturnType = (Voyage & { vessel: Vessel })[];
  */
 const handler: NextApiHandler = async (
   req: NextApiRequest,
-  res: NextApiResponse<undefined>,
+  res: NextApiResponse,
 ) => {
   if (req.method === "DELETE") {
     // randomly fail the delete request
     const maybe = Math.round(Math.random());
     if (maybe) {
-      res.status(400).end();
-      return;
+      return res.status(400).send({
+        message: "Failed to delete the voyage due to a random error.",
+      });
     }
     const deletedVoyage = await prisma.voyage.delete({
       where: {
@@ -46,7 +47,11 @@ const handler: NextApiHandler = async (
       },
     });
 
-    deletedVoyage ? res.status(204) : res.status(404);
+    deletedVoyage
+      ? res.status(204)
+      : res
+          .status(404)
+          .send({ message: "The voyage with the specified ID was not found." });
     res.end();
     return;
   }
