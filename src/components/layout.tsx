@@ -1,7 +1,7 @@
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { Toaster } from "./ui/toaster";
+import { Toaster } from "./ui/shad-cn/toaster";
 
 type Props = {
   children: ReactNode;
