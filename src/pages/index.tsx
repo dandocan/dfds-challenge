@@ -295,6 +295,12 @@ export default function Home() {
                     />
                   )}
                 />
+                {
+                  <p className="h-4 text-red-400">
+                    {errors.unitTypes?.message &&
+                      `*${errors.unitTypes.message}`}
+                  </p>
+                }
               </div>
               <Button type="submit" variant={"default"}>
                 Save
