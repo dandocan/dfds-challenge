@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UnitType } from "@prisma/client";
 import { Cross1Icon, PlusIcon } from "@radix-ui/react-icons";
+import { PopoverContent } from "@radix-ui/react-popover";
 import {
   InvalidateQueryFilters,
   useMutation,
@@ -17,6 +18,7 @@ import { CheckboxDropdown } from "~/components/ui/CheckboxDropdown";
 import { DateTimePopover } from "~/components/ui/DateTimePopover";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
+import { Popover, PopoverTrigger } from "~/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -316,6 +318,7 @@ export default function Home() {
               <TableHead>Port of loading</TableHead>
               <TableHead>Port of discharge</TableHead>
               <TableHead>Vessel</TableHead>
+              <TableHead>Unit types</TableHead>
               <TableHead>
                 <Button
                   className="my-2"
@@ -343,6 +346,21 @@ export default function Home() {
                 <TableCell>{voyage.portOfLoading}</TableCell>
                 <TableCell>{voyage.portOfDischarge}</TableCell>
                 <TableCell>{voyage.vessel.name}</TableCell>
+                <TableCell>
+                  <Popover>
+                    <PopoverTrigger># {voyage.unitTypes.length}</PopoverTrigger>
+                    {voyage.unitTypes.length > 0 && (
+                      <PopoverContent className="flex w-auto flex-col gap-1 rounded-sm border-2 border-white bg-popover p-3">
+                        {voyage.unitTypes.map((unitType) => (
+                          <div className="flex justify-between gap-2">
+                            <span>{`${unitType.name}:`}</span>
+                            <span>{unitType.defaultLength}</span>
+                          </div>
+                        ))}
+                      </PopoverContent>
+                    )}
+                  </Popover>
+                </TableCell>
                 <TableCell>
                   <Button
                     onClick={() => handleDelete(voyage.id)}
