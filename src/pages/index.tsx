@@ -75,87 +75,85 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <>
-          <CreateVoyageSheet
-            isCreateDialogOpen={isCreateDialogOpen}
-            setIsCreateDialogOpen={setIsCreateDialogOpen}
-          />
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Departure</TableHead>
-                <TableHead>Arrival</TableHead>
-                <TableHead>Port of loading</TableHead>
-                <TableHead>Port of discharge</TableHead>
-                <TableHead>Vessel</TableHead>
-                <TableHead>Unit types</TableHead>
-                <TableHead>
-                  <Button
-                    className="my-2"
-                    variant={"default"}
-                    title="Create new voyage"
-                    onClick={() => setIsCreateDialogOpen(true)}
-                  >
-                    <PlusIcon />
-                  </Button>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {isLoading ? (
-                <TableSkeleton rows={16} cells={6} />
-              ) : (
-                voyages?.map((voyage) => (
-                  <TableRow key={voyage.id}>
-                    <TableCell>
-                      {format(
-                        new Date(voyage.scheduledDeparture),
-                        TABLE_DATE_FORMAT,
+        <CreateVoyageSheet
+          isCreateDialogOpen={isCreateDialogOpen}
+          setIsCreateDialogOpen={setIsCreateDialogOpen}
+        />
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Departure</TableHead>
+              <TableHead>Arrival</TableHead>
+              <TableHead>Port of loading</TableHead>
+              <TableHead>Port of discharge</TableHead>
+              <TableHead>Vessel</TableHead>
+              <TableHead>Unit types</TableHead>
+              <TableHead>
+                <Button
+                  className="my-2"
+                  variant={"default"}
+                  title="Create new voyage"
+                  onClick={() => setIsCreateDialogOpen(true)}
+                >
+                  <PlusIcon />
+                </Button>
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {isLoading ? (
+              <TableSkeleton rows={16} cells={6} />
+            ) : (
+              voyages?.map((voyage) => (
+                <TableRow key={voyage.id}>
+                  <TableCell>
+                    {format(
+                      new Date(voyage.scheduledDeparture),
+                      TABLE_DATE_FORMAT,
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {format(
+                      new Date(voyage.scheduledArrival),
+                      TABLE_DATE_FORMAT,
+                    )}
+                  </TableCell>
+                  <TableCell>{voyage.portOfLoading}</TableCell>
+                  <TableCell>{voyage.portOfDischarge}</TableCell>
+                  <TableCell>{voyage.vessel.name}</TableCell>
+                  <TableCell>
+                    <Popover>
+                      <PopoverTrigger>
+                        # {voyage.unitTypes.length}
+                      </PopoverTrigger>
+                      {voyage.unitTypes.length > 0 && (
+                        <PopoverContent className="flex w-auto flex-col gap-1 rounded-sm border-2 border-white bg-popover p-3">
+                          {voyage.unitTypes.map((unitType) => (
+                            <div
+                              className="flex justify-between gap-2"
+                              key={unitType.id}
+                            >
+                              <span>{`${unitType.name}:`}</span>
+                              <span>{unitType.defaultLength}</span>
+                            </div>
+                          ))}
+                        </PopoverContent>
                       )}
-                    </TableCell>
-                    <TableCell>
-                      {format(
-                        new Date(voyage.scheduledArrival),
-                        TABLE_DATE_FORMAT,
-                      )}
-                    </TableCell>
-                    <TableCell>{voyage.portOfLoading}</TableCell>
-                    <TableCell>{voyage.portOfDischarge}</TableCell>
-                    <TableCell>{voyage.vessel.name}</TableCell>
-                    <TableCell>
-                      <Popover>
-                        <PopoverTrigger>
-                          # {voyage.unitTypes.length}
-                        </PopoverTrigger>
-                        {voyage.unitTypes.length > 0 && (
-                          <PopoverContent className="flex w-auto flex-col gap-1 rounded-sm border-2 border-white bg-popover p-3">
-                            {voyage.unitTypes.map((unitType) => (
-                              <div
-                                className="flex justify-between gap-2"
-                                key={unitType.id}
-                              >
-                                <span>{`${unitType.name}:`}</span>
-                                <span>{unitType.defaultLength}</span>
-                              </div>
-                            ))}
-                          </PopoverContent>
-                        )}
-                      </Popover>
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        onClick={() => handleDelete(voyage.id)}
-                        variant="outline"
-                      >
-                        <Cross1Icon />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </>
+                    </Popover>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      onClick={() => handleDelete(voyage.id)}
+                      variant="outline"
+                    >
+                      <Cross1Icon />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
       </Layout>
     </>
   );
