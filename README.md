@@ -1,4 +1,4 @@
-# Frontend Code Challenge - Solution by Dan-Cristian VIlcu
+# Frontend Code Challenge - Solution by Dan-Cristian Vilcu
 
 The application is built using NextJS, TypeScript, Prisma, React Query, Tailwind, Zod, React Hook Form, and [https://ui.shadcn.com/](https://ui.shadcn.com/) for ready-made components. Alongside the 4 tasks, I also solved a few bugs and inconsistencies present.
 
@@ -31,5 +31,5 @@ There are several improvements that I wanted to make that I felt deviated too mu
 ## Caveats
 
 - Left in the random delete endpoint failure for testing reasons.
-- Some of the error displaying and dismissing for RFH is inconsistent, particularly because of the custome DateTimePopover.
-- There is a Vercel deployment, but this doesn't work fully Vercel doesn't support sqlite
+- Some of the error displaying and dismissing for RFH is inconsistent, particularly because of the custom DateTimePopover.
+- There is a Vercel deployment, but this doesn't work fully since Vercel doesn't support sqlite
