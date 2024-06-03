@@ -32,11 +32,7 @@ import type { ReturnType } from "./api/voyage/getAll";
 
 export default function Home() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const {
-    data: voyages,
-    isLoading,
-    // error,
-  } = useQuery<ReturnType>({
+  const { data: voyages, isLoading } = useQuery<ReturnType>({
     queryKey: ["voyages"],
     queryFn: () => fetchData("voyage/getAll"),
   });
