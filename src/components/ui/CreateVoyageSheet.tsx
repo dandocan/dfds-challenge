@@ -138,7 +138,7 @@ export const CreateVoyageSheet = ({
 
   return (
     <Sheet open={isCreateDialogOpen} onOpenChange={handleSheetClose}>
-      <SheetContent className="flex flex-col" side={"right"}>
+      <SheetContent className="flex w-full flex-col sm:w-3/4" side={"right"}>
         <SheetHeader className="mb-2">Create new voyage</SheetHeader>
         <form
           className="flex h-full flex-col justify-between"
