@@ -166,13 +166,17 @@ const TableSkeleton = ({
 }: {
   rows: number;
   cells: number;
+  // rowHeight follows the format of Tailwind height
   rowHeight?: number;
 }) => {
   return Array.from({ length: rows }, (_, index) => (
     <TableRow key={index}>
       {Array.from({ length: cells }, (_, cellIndex) => (
         <TableCell key={cellIndex}>
-          <Skeleton className={`h-${rowHeight} w-full`} />
+          <Skeleton
+            className="w-full"
+            style={{ height: `${rowHeight / 4}rem` }}
+          />
         </TableCell>
       ))}
     </TableRow>
