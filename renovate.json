@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended"
   ],
-  "addLabels": {
+  "addLabels": [{
     "labels": ["dependencies"],
-  }
+  }]
 }
