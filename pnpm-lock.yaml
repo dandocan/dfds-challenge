@@ -37,7 +37,7 @@ importers:
         version: 1.1.5(@types/react-dom@18.2.18)(@types/react@18.2.53)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@t3-oss/env-nextjs':
         specifier: ^0.8.0
-        version: 0.8.0(typescript@5.3.3)(zod@3.22.4)
+        version: 0.8.0(typescript@5.3.3)(zod@3.24.1)
       '@tanstack/react-query':
         specifier: ^5.18.1
         version: 5.18.1(react@18.2.0)
@@ -87,11 +87,11 @@ importers:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.11.16)(typescript@5.3.3)
       zod:
-        specifier: ^3.22.4
-        version: 3.22.4
+        specifier: ^3.24.1
+        version: 3.24.1
     devDependencies:
       '@types/eslint':
-        specifier: ^8.56.12
+        specifier: ^8.56.2
         version: 8.56.12
       '@types/node':
         specifier: ^20.11.16
@@ -3261,8 +3261,8 @@ packages:
   zenscroll@4.0.2:
     resolution: {integrity: sha512-jEA1znR7b4C/NnaycInCU6h/d15ZzCd1jmsruqOKnZP6WXQSMH3W2GL+OXbkruslU4h+Tzuos0HdswzRUk/Vgg==}
 
-  zod@3.22.4:
-    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
 
 snapshots:
 
@@ -4193,16 +4193,16 @@ snapshots:
     dependencies:
       tslib: 2.6.1
 
-  '@t3-oss/env-core@0.8.0(typescript@5.3.3)(zod@3.22.4)':
+  '@t3-oss/env-core@0.8.0(typescript@5.3.3)(zod@3.24.1)':
     dependencies:
-      zod: 3.22.4
+      zod: 3.24.1
     optionalDependencies:
       typescript: 5.3.3
 
-  '@t3-oss/env-nextjs@0.8.0(typescript@5.3.3)(zod@3.22.4)':
+  '@t3-oss/env-nextjs@0.8.0(typescript@5.3.3)(zod@3.24.1)':
     dependencies:
-      '@t3-oss/env-core': 0.8.0(typescript@5.3.3)(zod@3.22.4)
-      zod: 3.22.4
+      '@t3-oss/env-core': 0.8.0(typescript@5.3.3)(zod@3.24.1)
+      zod: 3.24.1
     optionalDependencies:
       typescript: 5.3.3
 
@@ -6969,4 +6969,4 @@ snapshots:
 
   zenscroll@4.0.2: {}
 
-  zod@3.22.4: {}
+  zod@3.24.1: {}
