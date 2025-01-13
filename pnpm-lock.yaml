@@ -48,8 +48,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       date-fns:
-        specifier: ^3.3.1
-        version: 3.3.1
+        specifier: ^4.0.0
+        version: 4.1.0
       lint-staged:
         specifier: ^15.2.5
         version: 15.3.0
@@ -67,7 +67,7 @@ importers:
         version: 18.2.0
       react-day-picker:
         specifier: ^8.10.1
-        version: 8.10.1(date-fns@3.3.1)(react@18.2.0)
+        version: 8.10.1(date-fns@4.1.0)(react@18.2.0)
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
@@ -1288,8 +1288,8 @@ packages:
   damerau-levenshtein@1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
 
-  date-fns@3.3.1:
-    resolution: {integrity: sha512-y8e109LYGgoQDveiEBD3DYXKba1jWf5BA8YU1FL5Tvm0BTdEfy54WLCwnuYWZNnzzvALy/QQ4Hov+Q9RVRv+Zw==}
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
@@ -4689,7 +4689,7 @@ snapshots:
 
   damerau-levenshtein@1.0.8: {}
 
-  date-fns@3.3.1: {}
+  date-fns@4.1.0: {}
 
   debug@3.2.7:
     dependencies:
@@ -6105,9 +6105,9 @@ snapshots:
       prop-types: 15.8.1
       react: 18.2.0
 
-  react-day-picker@8.10.1(date-fns@3.3.1)(react@18.2.0):
+  react-day-picker@8.10.1(date-fns@4.1.0)(react@18.2.0):
     dependencies:
-      date-fns: 3.3.1
+      date-fns: 4.1.0
       react: 18.2.0
 
   react-debounce-input@3.3.0(react@18.2.0):
