@@ -7,6 +7,6 @@
     "labels": ["dependencies"],
   }],
   "schedule": [
-    "* 0-3 * * 1"
+    "* 0-3 * * 1, 3"
   ]
 }
