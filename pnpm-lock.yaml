@@ -57,8 +57,8 @@ importers:
         specifier: ^14.1.0
         version: 14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next-swagger-doc:
-        specifier: ^0.4.0
-        version: 0.4.0(next@14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(openapi-types@12.1.3)
+        specifier: ^0.4.1
+        version: 0.4.1(next@14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(openapi-types@12.1.3)
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -91,7 +91,7 @@ importers:
         version: 3.22.4
     devDependencies:
       '@types/eslint':
-        specifier: ^8.56.12
+        specifier: ^8.56.2
         version: 8.56.12
       '@types/node':
         specifier: ^20.11.16
@@ -872,8 +872,8 @@ packages:
   '@types/semver@7.5.0':
     resolution: {integrity: sha512-G8hZ6XJiHnuhQKR7ZmysCeJWE08o8T0AXtk5darsCaTVsYZhhgUrq53jizaR2FvsoeCwJhlmwTjkXBY5Pn/ZHw==}
 
-  '@types/swagger-jsdoc@6.0.1':
-    resolution: {integrity: sha512-+MUpcbyxD528dECUBCEVm6abNuORdbuGjbrUdHDeAQ+rkPuo2a+L4N02WJHF3bonSSE6SJ3dUJwF2V6+cHnf0w==}
+  '@types/swagger-jsdoc@6.0.4':
+    resolution: {integrity: sha512-W+Xw5epcOZrF/AooUM/PccNMSAFOKWZA5dasNyMujTwsBkU74njSJBpvCCJhHAJ95XRMzQrrW844Btu0uoetwQ==}
 
   '@types/swagger-ui-react@4.18.3':
     resolution: {integrity: sha512-Mo/R7IjDVwtiFPs84pWvh5pI9iyNGBjmfielxqbOh2Jv+8WVSDVe8Nu25kb5BOuV2xmGS3o33jr6nwDJMBcX+Q==}
@@ -2195,9 +2195,9 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
-  next-swagger-doc@0.4.0:
-    resolution: {integrity: sha512-5Wt19Av4tOHVdXPJ7xTVvDJuiWuP5OYnY13BSq5SIjMtktFfhX4/9yZyaMCXImbUECu26PALn9CpRQRplIXJ3w==}
-    engines: {node: '>=12'}
+  next-swagger-doc@0.4.1:
+    resolution: {integrity: sha512-pFmFUOwNlJh7mr9P6b2obAHa9JAwgPK3oNTIzE9g/Gs+h2OG1T3C5SanzrqGA3dDncagyf/DbO5U+ZzNxKadWg==}
+    engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
       next: '>=9'
@@ -3165,8 +3165,8 @@ packages:
   v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
 
-  validator@13.11.0:
-    resolution: {integrity: sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==}
+  validator@13.12.0:
+    resolution: {integrity: sha512-c1Q0mCiPlgdTVVVIJIrBuxNicYE+t/7oKeI9MWLj3fh/uq2Pxh/3eeWbVZ4OcGW1TUf53At0njHw5SMdA3tmMg==}
     engines: {node: '>= 0.10'}
 
   web-streams-polyfill@3.3.2:
@@ -4260,7 +4260,7 @@ snapshots:
 
   '@types/semver@7.5.0': {}
 
-  '@types/swagger-jsdoc@6.0.1': {}
+  '@types/swagger-jsdoc@6.0.4': {}
 
   '@types/swagger-ui-react@4.18.3':
     dependencies:
@@ -5787,9 +5787,9 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-swagger-doc@0.4.0(next@14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(openapi-types@12.1.3):
+  next-swagger-doc@0.4.1(next@14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(openapi-types@12.1.3):
     dependencies:
-      '@types/swagger-jsdoc': 6.0.1
+      '@types/swagger-jsdoc': 6.0.4
       cleye: 1.3.2
       isarray: 2.0.5
       next: 14.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -6860,7 +6860,7 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  validator@13.11.0: {}
+  validator@13.12.0: {}
 
   web-streams-polyfill@3.3.2: {}
 
@@ -6963,7 +6963,7 @@ snapshots:
     dependencies:
       lodash.get: 4.4.2
       lodash.isequal: 4.5.0
-      validator: 13.11.0
+      validator: 13.12.0
     optionalDependencies:
       commander: 9.5.0
 
