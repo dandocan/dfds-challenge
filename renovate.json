@@ -1,0 +1,12 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "addLabels": [{
+    "labels": ["dependencies"],
+  }],
+  "schedule": [
+    "* 0-3 * * 1,3"
+  ]
+}
