@@ -29,31 +29,19 @@ import { useToast } from "src/hooks/use-toast";
 import { fetchData } from "src/utils";
 import { Skeleton } from "~/components/ui/skeleton";
 import type { ReturnType } from "./api/voyage/getAll";
+import { trpc } from "~/utils/trpc";
 
 export default function Home() {
+  const trpcUtils = trpc.useUtils();
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const { data: voyages, isLoading } = useQuery<ReturnType>({
-    queryKey: ["voyages"],
-    queryFn: () => fetchData("voyage/getAll"),
-  });
-
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: async (voyageId: string) => {
-      const response = await fetch(`/api/voyage/delete?id=${voyageId}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        const { message } = await response.json();
-        throw new Error(message);
-      }
-    },
+  const { data: voyages, isLoading } = trpc.voyages.getVoyages.useQuery();
+  const deleteVoyage = trpc.voyages.deleteVoyage.useMutation({
     onSuccess: async () => {
-      await queryClient.invalidateQueries([
-        "voyages",
-      ] as InvalidateQueryFilters);
+      // console.log("success");
+      await trpcUtils.voyages.invalidate();
+      // await queryClient.invalidateQueries([
+      //   "voyages",
+      // ] as InvalidateQueryFilters);
     },
     onError(error) {
       toast({
@@ -63,9 +51,41 @@ export default function Home() {
       });
     },
   });
+  // const { data: voyages, isLoading } = useQuery<ReturnType>({
+  //   queryKey: ["voyages"],
+  //   queryFn: () => fetchData("voyage/getAll"),
+  // });
+
+  const { toast } = useToast();
+  // const queryClient = useQueryClient();
+  // const mutation = useMutation({
+  //   mutationFn: async (voyageId: string) => {
+  //     const response = await fetch(`/api/voyage/delete?id=${voyageId}`, {
+  //       method: "DELETE",
+  //     });
+
+  //     if (!response.ok) {
+  //       const { message } = await response.json();
+  //       throw new Error(message);
+  //     }
+  //   },
+  //   onSuccess: async () => {
+  //     await queryClient.invalidateQueries([
+  //       "voyages",
+  //     ] as InvalidateQueryFilters);
+  //   },
+  //   onError(error) {
+  //     toast({
+  //       title: "Error",
+  //       description: error.message,
+  //       variant: "destructive",
+  //     });
+  //   },
+  // });
 
   const handleDelete = (voyageId: string) => {
-    mutation.mutate(voyageId);
+    // mutation.mutate(voyageId);
+    deleteVoyage.mutate({ id: voyageId });
   };
 
   return (
