@@ -40,18 +40,18 @@ export type CreateVoyageBody = {
   portOfLoading: string;
   portOfDischarge: string;
   vesselId: string;
-  scheduledDeparture: Date;
-  scheduledArrival: Date;
+  scheduledDeparture: string;
+  scheduledArrival: string;
   unitTypes: string[];
 };
 
-const schema: ZodType<CreateVoyageBody> = z
+const schema: ZodType = z
   .object({
     portOfLoading: z.string().min(1, { message: "Required" }),
     portOfDischarge: z.string().min(1, { message: "Required" }),
     vesselId: z.string().min(1, { message: "Required" }),
-    scheduledDeparture: z.date(),
-    scheduledArrival: z.date(),
+    scheduledDeparture: z.date().transform((val) => val as unknown as string),
+    scheduledArrival: z.date().transform((val) => val as unknown as string),
     date: z.string().optional(),
     unitTypes: z
       .array(z.string())
@@ -154,6 +154,8 @@ export const CreateVoyageSheet = ({
 
   const onSubmit = (data: FieldValues) => {
     createVoyage.mutate({
+      // scheduledArrival: arrive,
+      // scheduledDeparture: depart,
       ...(data as CreateVoyageBody),
     });
   };

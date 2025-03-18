@@ -20,8 +20,8 @@ export const voyageRouter = router({
     .input(
       z.object({
         // Zod schema defines what inputs are valid
-        scheduledDeparture: z.date(),
-        scheduledArrival: z.date(),
+        scheduledDeparture: z.string().transform((val) => new Date(val)),
+        scheduledArrival: z.string().transform((val) => new Date(val)),
         portOfLoading: z.string(),
         portOfDischarge: z.string(),
         vesselId: z.string(),
@@ -29,6 +29,7 @@ export const voyageRouter = router({
       }),
     )
     .mutation(async ({ input }) => {
+      console.log("in create");
       const { unitTypes, ...rest } = input;
       const voyage = await prisma.voyage.create({
         data: {
