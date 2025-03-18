@@ -95,15 +95,9 @@ export const CreateVoyageSheet = ({
     },
   });
 
-  const { data: vessels } = useQuery<VesselsResponseType>({
-    queryKey: ["vessels"],
-    queryFn: () => fetchData("vessel/getAll"),
-  });
+  const { data: vessels } = trpc.vessels.getVessels.useQuery();
 
-  const { data: unitTypes } = useQuery<UnitType[]>({
-    queryKey: ["unitType"],
-    queryFn: () => fetchData("unitType/getAll"),
-  });
+  const { data: unitTypes } = trpc.unitTypes.getUnitTypes.useQuery();
 
   const { toast } = useToast();
   const trpcUtils = trpc.useUtils();
@@ -125,28 +119,6 @@ export const CreateVoyageSheet = ({
       });
     },
   });
-  // const createMutation = useMutation({
-  //   mutationFn: createVoyage,
-  //   onSuccess: async () => {
-  //     await queryClient.invalidateQueries([
-  //       "voyages",
-  //     ] as InvalidateQueryFilters);
-  //     handleSheetClose(false);
-  //     toast({
-  //       title: "Success!",
-  //       description: "Voyage was successfully created",
-  //     });
-  //   },
-  //   onError(error) {
-  //     handleSheetClose(false);
-  //     toast({
-  //       title: "Error",
-  //       description: error.message,
-  //       variant: "destructive",
-  //     });
-  //   },
-  // });
-
   const handleSheetClose = (open: boolean) => {
     if (!open) reset();
     setIsCreateDialogOpen(open);
@@ -154,8 +126,6 @@ export const CreateVoyageSheet = ({
 
   const onSubmit = (data: FieldValues) => {
     createVoyage.mutate({
-      // scheduledArrival: arrive,
-      // scheduledDeparture: depart,
       ...(data as CreateVoyageBody),
     });
   };

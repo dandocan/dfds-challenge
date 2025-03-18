@@ -37,11 +37,7 @@ export default function Home() {
   const { data: voyages, isLoading } = trpc.voyages.getVoyages.useQuery();
   const deleteVoyage = trpc.voyages.deleteVoyage.useMutation({
     onSuccess: async () => {
-      // console.log("success");
       await trpcUtils.voyages.invalidate();
-      // await queryClient.invalidateQueries([
-      //   "voyages",
-      // ] as InvalidateQueryFilters);
     },
     onError(error) {
       toast({
@@ -51,40 +47,10 @@ export default function Home() {
       });
     },
   });
-  // const { data: voyages, isLoading } = useQuery<ReturnType>({
-  //   queryKey: ["voyages"],
-  //   queryFn: () => fetchData("voyage/getAll"),
-  // });
 
   const { toast } = useToast();
-  // const queryClient = useQueryClient();
-  // const mutation = useMutation({
-  //   mutationFn: async (voyageId: string) => {
-  //     const response = await fetch(`/api/voyage/delete?id=${voyageId}`, {
-  //       method: "DELETE",
-  //     });
-
-  //     if (!response.ok) {
-  //       const { message } = await response.json();
-  //       throw new Error(message);
-  //     }
-  //   },
-  //   onSuccess: async () => {
-  //     await queryClient.invalidateQueries([
-  //       "voyages",
-  //     ] as InvalidateQueryFilters);
-  //   },
-  //   onError(error) {
-  //     toast({
-  //       title: "Error",
-  //       description: error.message,
-  //       variant: "destructive",
-  //     });
-  //   },
-  // });
 
   const handleDelete = (voyageId: string) => {
-    // mutation.mutate(voyageId);
     deleteVoyage.mutate({ id: voyageId });
   };
 
