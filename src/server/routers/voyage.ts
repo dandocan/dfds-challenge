@@ -29,7 +29,6 @@ export const voyageRouter = router({
       }),
     )
     .mutation(async ({ input }) => {
-      console.log("in create");
       const { unitTypes, ...rest } = input;
       const voyage = await prisma.voyage.create({
         data: {
@@ -57,8 +56,6 @@ export const voyageRouter = router({
           id,
         },
       });
-
-      console.log(deletedVoyage);
 
       if (!deletedVoyage)
         throw new TRPCError({
