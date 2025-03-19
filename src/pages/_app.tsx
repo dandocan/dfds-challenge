@@ -7,6 +7,7 @@ import {
 import { type AppType } from "next/dist/shared/lib/utils";
 import { useState } from "react";
 import "src/styles/globals.css";
+import { trpc } from "../utils/trpc";
 
 const MyApp: AppType<{ dehydratedState: DehydratedState }> = ({
   Component,
@@ -22,4 +23,4 @@ const MyApp: AppType<{ dehydratedState: DehydratedState }> = ({
   );
 };
 
-export default MyApp;
+export default trpc.withTRPC(MyApp);

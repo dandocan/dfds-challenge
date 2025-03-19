@@ -1,11 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UnitType } from "@prisma/client";
-import {
-  InvalidateQueryFilters,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
 import { compareAsc } from "date-fns";
 import { Controller, FieldValues, useForm } from "react-hook-form";
 import { CheckboxDropdown } from "src/components/ui/CheckboxDropdown";
@@ -25,10 +18,8 @@ import {
   SheetHeader,
 } from "src/components/ui/shad-cn/sheet";
 import { useToast } from "src/hooks/use-toast";
-import { createVoyage } from "src/lib/voyage";
-import { VesselsResponseType } from "src/pages/api/vessel/getAll";
-import { fetchData } from "src/utils";
 import { ZodType, z } from "zod";
+import { trpc } from "~/utils/trpc";
 
 type CreateVoyageSheetProps = {
   isCreateDialogOpen: boolean;
@@ -38,28 +29,31 @@ type CreateVoyageSheetProps = {
 export type CreateVoyageBody = {
   portOfLoading: string;
   portOfDischarge: string;
-  vessel: string;
-  departure: Date;
-  arrival: Date;
-  unitTypes?: string[];
+  vesselId: string;
+  scheduledDeparture: string;
+  scheduledArrival: string;
+  unitTypes: string[];
 };
 
-const schema: ZodType<CreateVoyageBody> = z
+const schema: ZodType = z
   .object({
     portOfLoading: z.string().min(1, { message: "Required" }),
     portOfDischarge: z.string().min(1, { message: "Required" }),
-    vessel: z.string().min(1, { message: "Required" }),
-    departure: z.date(),
-    arrival: z.date(),
+    vesselId: z.string().min(1, { message: "Required" }),
+    scheduledDeparture: z.date().transform((val) => val as unknown as string),
+    scheduledArrival: z.date().transform((val) => val as unknown as string),
     date: z.string().optional(),
     unitTypes: z
       .array(z.string())
       .min(5, { message: "At least 5 unit types are required" }),
   })
-  .refine((data) => compareAsc(data.arrival, data.departure) !== -1, {
-    message: "Arrival date cannot be earlier than departure date.",
-    path: ["date"],
-  })
+  .refine(
+    (data) => compareAsc(data.scheduledArrival, data.scheduledDeparture) !== -1,
+    {
+      message: "Arrival date cannot be earlier than departure date.",
+      path: ["date"],
+    },
+  )
   .refine((data) => data.portOfLoading === data.portOfLoading, {
     message: "Port of loading and port of discharge cannot be the same.",
     path: ["arrival"],
@@ -83,32 +77,23 @@ export const CreateVoyageSheet = ({
     defaultValues: {
       portOfDischarge: "",
       portOfLoading: "",
-      departure: null,
-      arrival: null,
-      vessel: "",
+      scheduledDeparture: null,
+      scheduledArrival: null,
+      vesselId: "",
       date: "",
       unitTypes: [],
     },
   });
 
-  const { data: vessels } = useQuery<VesselsResponseType>({
-    queryKey: ["vessels"],
-    queryFn: () => fetchData("vessel/getAll"),
-  });
+  const { data: vessels } = trpc.vessels.getVessels.useQuery();
 
-  const { data: unitTypes } = useQuery<UnitType[]>({
-    queryKey: ["unitType"],
-    queryFn: () => fetchData("unitType/getAll"),
-  });
+  const { data: unitTypes } = trpc.unitTypes.getUnitTypes.useQuery();
 
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const createMutation = useMutation({
-    mutationFn: createVoyage,
+  const trpcUtils = trpc.useUtils();
+  const createVoyage = trpc.voyages.createVoyage.useMutation({
     onSuccess: async () => {
-      await queryClient.invalidateQueries([
-        "voyages",
-      ] as InvalidateQueryFilters);
+      await trpcUtils.voyages.invalidate();
       handleSheetClose(false);
       toast({
         title: "Success!",
@@ -124,14 +109,13 @@ export const CreateVoyageSheet = ({
       });
     },
   });
-
   const handleSheetClose = (open: boolean) => {
     if (!open) reset();
     setIsCreateDialogOpen(open);
   };
 
   const onSubmit = (data: FieldValues) => {
-    createMutation.mutate({
+    createVoyage.mutate({
       ...(data as CreateVoyageBody),
     });
   };
@@ -166,14 +150,14 @@ export const CreateVoyageSheet = ({
               }
             </div>
             <div>
-              <label htmlFor="vessel">Vessel</label>
+              <label htmlFor="vesselId">Vessel</label>
               <Controller
-                name="vessel"
+                name="vesselId"
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <Select
                     onValueChange={(value) => {
-                      setError("vessel", {});
+                      setError("vesselId", {});
                       onChange(value);
                     }}
                     value={value}
@@ -196,47 +180,48 @@ export const CreateVoyageSheet = ({
               />
               {
                 <p className="h-4 text-red-400">
-                  {errors.vessel?.message && `*${errors.vessel.message}`}
+                  {errors.vesselId?.message && `*${errors.vesselId.message}`}
                 </p>
               }
             </div>
             <div className="flex gap-2">
               <div className="flex w-1/2 flex-col">
-                <label htmlFor="departure">Departure</label>
+                <label htmlFor="scheduledDeparture">Departure</label>
                 <Controller
-                  name="departure"
+                  name="scheduledDeparture"
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <DateTimePopover
                       onChange={onChange}
                       value={value}
-                      maxDate={watch("arrival")}
+                      maxDate={watch("scheduledArrival")}
                     />
                   )}
                 />
                 {
                   <p className="h-4 text-red-400">
-                    {errors.departure?.message &&
-                      `*${errors.departure.message}`}
+                    {errors.scheduledDeparture?.message &&
+                      `*${errors.scheduledDeparture.message}`}
                   </p>
                 }
               </div>
               <div className="flex w-1/2 flex-col">
-                <label htmlFor="arrival">Arrival</label>
+                <label htmlFor="scheduledArrival">Arrival</label>
                 <Controller
-                  name="arrival"
+                  name="scheduledArrival"
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <DateTimePopover
                       onChange={onChange}
                       value={value}
-                      minDate={watch("departure")}
+                      minDate={watch("scheduledDeparture")}
                     />
                   )}
                 />
                 {
                   <p className="h-4 text-red-400">
-                    {errors.arrival?.message && `*${errors.arrival.message}`}
+                    {errors.scheduledArrival?.message &&
+                      `*${errors.scheduledArrival.message}`}
                   </p>
                 }
               </div>
